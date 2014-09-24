@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title>Object Store comparison</title>
+    <link rel="stylesheet" href="default.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="default.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+
+<a href="https://github.com/andrewgaul/object-store-comparison"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+
+<div class="page-header">
+    <h1 class="page_title">Object Store comparison</h1>
+
+    <p>Compare cost, durability, and region support of public cloud object stores, e.g., Amazon S3.</p>
+</div>
+
+<div class="pull-left" id="filters">
+    <div class="btn-group" id="filter-dropdown">
+        <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
+            Columns
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+            <!-- table header elements inserted by js -->
+        </ul>
+    </div>
+</div>
+
+<table id="objectstores" class="display">
+    <thead>
+        <tr>
+            <th>Object Store</th>
+            <th>Storage cost (cents/GB/mo)</th>
+            <th>Egress cost (cents/GB)</th>
+            <th>Ingress cost (cents/GB)</th>
+            <th>PUT, POST, COPY, LIST cost (cents/1000 ops)</th>
+            <th>HEAD, GET cost (cents/1000 ops)</th>
+            <th>DELETE cost (cents/1000 ops)</th>
+            <th>Durability %</th>
+            <th>Availability %</th>
+            <th>Regions</th>
+            <th>Replicas</th>
+            <th>Consistency</th>
+            <th>References</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>Amazon Glacier (US standard)</td>
+            <td>1.0</td>
+            <td>12.0</td>
+            <td>0.0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>99.999999999</td>
+            <td>99.99</td>
+            <td>6 (N. Virginia, N. California, Oregon, Ireland, Sydney, Tokyo)</td>
+            <td></td>
+            <td></td>
+            <td><a href="http://aws.amazon.com/s3/details/">1</a> <a href="http://aws.amazon.com/s3/pricing/">2</a></td>
+        </tr>
+        <tr>
+            <td>Amazon S3 Standard (US standard)</td>
+            <td>3.0</td>
+            <td>12.0</td>
+            <td>0.0</td>
+            <td>0.5</td>
+            <td>0.04</td>
+            <td>0.0</td>
+            <td>99.999999999</td>
+            <td>99.99</td>
+            <td>8 (N. Virginia, N. California, Oregon, Ireland, Singapore, Sydney, Tokyo, Sao Paolo)</td>
+            <td></td>
+            <td>eventual</td>
+            <td><a href="http://aws.amazon.com/s3/details/">1</a> <a href="http://aws.amazon.com/s3/pricing/">2</a> <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">3</a></td>
+        </tr>
+        <tr>
+            <td>Amazon S3 Reduced Redundancy (US standard)</td>
+            <td>2.4</td>
+            <td>12.0</td>
+            <td>0.0</td>
+            <td>0.5</td>
+            <td>0.04</td>
+            <td>0.0</td>
+            <td>99.99</td>
+            <td>99.99</td>
+            <td>8 (N. Virginia, N. California, Oregon, Ireland, Singapore, Sydney, Tokyo, Sao Paolo)</td>
+            <td></td>
+            <td>eventual</td>
+            <td><a href="http://aws.amazon.com/s3/details/">1</a> <a href="http://aws.amazon.com/s3/pricing/">2</a></td>
+        </tr>
+        <tr>
+            <td>AT&amp;T Synaptic Storage (local protection)</td>
+            <td>4.7</td>
+            <td>10.0</td>
+            <td>0.0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="https://www.synaptic.att.com/clouduser/html/productdetail/Storage_as_a_Service.htm">1</a></td>
+        </tr>
+        <tr>
+            <td>AT&amp;T Synaptic Storage (remote replication)</td>
+            <td>7.9</td>
+            <td>10.0</td>
+            <td>0.0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="https://www.synaptic.att.com/clouduser/html/productdetail/Storage_as_a_Service.htm">1</a></td>
+        </tr>
+        <tr>
+            <td>DreamHost DreamObjects</td>
+            <td>2.5</td>
+            <td>5.0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>99.99999</td>
+            <td></td>
+            <td></td>
+            <td>3</td>
+            <td></td>
+            <td><a href="http://www.dreamhost.com/cloud/dreamobjects/">1</a> <a href="http://wiki.dreamhost.com/DreamObjects">2</a></td>
+        </tr>
+        <tr>
+            <td>Google Cloud Storage Standard</td>
+            <td>2.6</td>
+            <td>12.0</td>
+            <td>0.0</td>
+            <td>1.0</td>
+            <td>0.1</td>
+            <td>0.0</td>
+            <td></td>
+            <td>99.9</td>
+            <td>7 (asia-east1, us-central1, us-central2, us-east1, us-east2, us-east3, us-west1)</td>
+            <td></td>
+            <td></td>
+            <td><a href="https://cloud.google.com/pricing/cloud-storage">1</a> <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">2</a></td>
+        </tr>
+        <tr>
+            <td>Google Cloud Storage Durable Reduced Availability</td>
+            <td>2.0</td>
+            <td>12.0</td>
+            <td>0.0</td>
+            <td>1.0</td>
+            <td>0.1</td>
+            <td>0.0</td>
+            <td></td>
+            <td>99.0</td>
+            <td>7 (asia-east1, us-central1, us-central2, us-east1, us-east2, us-east3, us-west1)</td>
+            <td></td>
+            <td></td>
+            <td><a href="https://cloud.google.com/pricing/cloud-storage">1</a> <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">2</a></td>
+        </tr>
+        <tr>
+            <td>HP Cloud Object Storage</td>
+            <td>9.0</td>
+            <td>12.0</td>
+            <td>0.0</td>
+            <td>1.0</td>
+            <td>1.0</td>
+            <td>1.0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>eventual</td>
+            <td><a href="http://www.hpcloud.com/products-services/object-storage?t=pricing">1</a></td>
+        </tr>
+        <tr>
+            <td>Joyent Manta</td>
+            <td>4.3</td>
+            <td>12.0</td>
+            <td>0.0</td>
+            <td>0.5</td>
+            <td>0.04</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td><a href="https://www.joyent.com/products/manta">1</a> <a href="https://www.joyent.com/products/manta/pricing">2</a></td>
+        </tr>
+        <tr>
+            <td>Microsoft Azure Locally Redundant Storage</td>
+            <td>2.4</td>
+            <td>8.7</td>
+            <td>0.0</td>
+            <td>0.0036</td>
+            <td>0.0036</td>
+            <td>0.0036</td>
+            <td></td>
+            <td>99.9</td>
+            <td><span sort="12">12 (Iowa, Virginia, Illinois, Texas, California, Ireland, Netherlands, Hong Kong, Singapore, Japan (Saitama), Japan (Osaka), Sao Paolo)</span></td>
+            <td>3</td>
+            <td>strong</td>
+            <td><a href="http://www.windowsazure.com/en-us/pricing/details/storage/">1</a> <a href="http://azure.microsoft.com/en-us/regions/#services">2</a> <a href="http://azure.microsoft.com/en-us/regions/">3</a> <a href="http://azure.microsoft.com/en-us/pricing/details/data-transfers/">4</a></td>
+        </tr>
+        <tr>
+            <td>Microsoft Azure Zone Redundant Storage</td>
+            <td>3.0</td>
+            <td>8.7</td>
+            <td>0.0</td>
+            <td>0.0036</td>
+            <td>0.0036</td>
+            <td>0.0036</td>
+            <td></td>
+            <td>99.9</td>
+            <td><span sort="12">12 (Iowa, Virginia, Illinois, Texas, California, Ireland, Netherlands, Hong Kong, Singapore, Japan (Saitama), Japan (Osaka), Sao Paolo)</span></td>
+            <td>3</td>
+            <td>strong</td>
+            <td><a href="http://www.windowsazure.com/en-us/pricing/details/storage/">1</a> <a href="http://azure.microsoft.com/en-us/regions/#services">2</a> <a href="http://azure.microsoft.com/en-us/regions/">3</a> <a href="http://azure.microsoft.com/en-us/pricing/details/data-transfers/">4</a></td>
+        </tr>
+        <tr>
+            <td>Microsoft Azure Geographically Redundant Storage</td>
+            <td>4.8</td>
+            <td>8.7</td>
+            <td>0.0</td>
+            <td>0.0036</td>
+            <td>0.0036</td>
+            <td>0.0036</td>
+            <td></td>
+            <td>99.9</td>
+            <td><span sort="12">12 (Iowa, Virginia, Illinois, Texas, California, Ireland, Netherlands, Hong Kong, Singapore, Japan (Saitama), Japan (Osaka), Sao Paolo)</span></td>
+            <td>6</td>
+            <td>strong</td>
+            <td><a href="http://www.windowsazure.com/en-us/pricing/details/storage/">1</a> <a href="http://azure.microsoft.com/en-us/regions/#services">2</a> <a href="http://azure.microsoft.com/en-us/regions/">3</a> <a href="http://azure.microsoft.com/en-us/pricing/details/data-transfers/">4</a></td>
+        </tr>
+        <tr>
+            <td>Microsoft Azure Read-Access Geographically Redundant Storage</td>
+            <td>6.1</td>
+            <td>8.7</td>
+            <td>0.0</td>
+            <td>0.0036</td>
+            <td>0.0036</td>
+            <td>0.0036</td>
+            <td></td>
+            <td>99.9</td>
+            <td><span sort="12">12 (Iowa, Virginia, Illinois, Texas, California, Ireland, Netherlands, Hong Kong, Singapore, Japan (Saitama), Japan (Osaka), Sao Paolo)</span></td>
+            <td>6</td>
+            <td>strong</td>
+            <td><a href="http://www.windowsazure.com/en-us/pricing/details/storage/">1</a> <a href="http://azure.microsoft.com/en-us/regions/#services">2</a> <a href="http://azure.microsoft.com/en-us/regions/">3</a> <a href="http://azure.microsoft.com/en-us/pricing/details/data-transfers/">4</a></td>
+        </tr>
+        <tr>
+            <td>Rackspace Cloud Files</td>
+            <td>10.0</td>
+            <td>12.0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>6 (N. Virginia, Dallas, Chicago, London, Sydney, Hong Kong)</td>
+            <td>3</td>
+            <td>eventual</td>
+            <td><a href="http://www.rackspace.com/cloud/files/pricing/">1</a> <a href="http://www.rackspace.com/knowledge_center/article/multi-region-support-in-cloud-files">2</a></td>
+        </tr>
+        <tr>
+            <td>Seagate EVault LTS2 (locally redundant)</td>
+            <td>1.5</td>
+            <td>7.0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="http://lts2.evault.com/pricing/">1</a></td>
+        </tr>
+        <tr>
+            <td>Seagate EVault LTS2 (geo-redundant)</td>
+            <td>3.0</td>
+            <td>7.0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="http://lts2.evault.com/pricing/">1</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<p>Data sourced from provider documentation and not independently verified.
+Prices do not include volume discounts.</p>
+
+</body>
+</html>
